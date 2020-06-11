@@ -4,14 +4,17 @@
       <thead>
         <tr>
           <th class="text-left">이름</th>
-          <th class="text-left">
-            판매가
-            <button @click="sortHighest">
-              <i class="fas fa-caret-up"></i>
-            </button>
-            <button @click="sortLowest">
-              <i class="fas fa-caret-down"></i>
-            </button>
+          <th class="text-left header-sales">
+            <p>판매가</p>
+            <!--button-->
+            <div class="sorting-btn">
+              <button @click="sortHighest">
+                <i class="fas fa-caret-up"></i>
+              </button>
+              <button @click="sortLowest">
+                <i class="fas fa-caret-down"></i>
+              </button>
+            </div>
           </th>
           <th class="text-left">원가</th>
           <th class="text-left">등록일</th>
@@ -38,5 +41,10 @@ export default {
 <style scoped>
 .text-left {
   text-align: left;
+  align-items: center;
+}
+
+.header-sales {
+  display: flex;
 }
 </style>

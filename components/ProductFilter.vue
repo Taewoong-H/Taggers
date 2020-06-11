@@ -1,16 +1,16 @@
 <template>
   <v-container id="dropdown-example">
     <v-row>
-      <v-col class="d-flex" cols="12" sm="3">
-        <v-select :items="field" label="Standard"></v-select>
+      <v-col class="d-flex" cols="12" sm="2">
+        <v-select :items="field" label="필드"></v-select>
       </v-col>
 
       <v-col class="d-flex" cols="12" sm="3">
-        <v-select :items="operator" label="Standard"></v-select>
+        <v-select :items="operator" label="연산자"></v-select>
       </v-col>
 
       <v-col cols="12" sm="4" md="3">
-        <v-text-field label="Regular"></v-text-field>
+        <v-text-field label="값"></v-text-field>
       </v-col>
 
       <v-col cols="12" sm="4" md="3">
@@ -24,7 +24,7 @@
           min-width="290px"
         >
           <template v-slot:activator="{ on, attrs }">
-            <v-text-field v-model="date" label="Picker in menu" readonly v-bind="attrs" v-on="on"></v-text-field>
+            <v-text-field v-model="date" label="날짜 선택" readonly v-bind="attrs" v-on="on"></v-text-field>
           </template>
           <v-date-picker v-model="date" no-title scrollable>
             <v-spacer></v-spacer>
@@ -32,6 +32,9 @@
             <v-btn text color="primary" @click="$refs.menu.save(date)">OK</v-btn>
           </v-date-picker>
         </v-menu>
+      </v-col>
+      <v-col cols="12" sm="2" md="1" class="submit">
+        <button class="submit-btn">확인</button>
       </v-col>
     </v-row>
   </v-container>
@@ -42,12 +45,6 @@ export default {
   data: () => ({
     field: ["이름", "판매가", "원가"],
     operator: ["다음보다 큼", "다음과 같음", "다음보다 작음"],
-    dropdown_font: ["Arial", "Calibri", "Courier", "Verdana"],
-    dropdown_icon: [
-      { text: "list", callback: () => console.log("list") },
-      { text: "favorite", callback: () => console.log("favorite") },
-      { text: "delete", callback: () => console.log("delete") }
-    ],
 
     //calender data
     date: new Date().toISOString().substr(0, 10),
@@ -55,3 +52,22 @@ export default {
   })
 };
 </script>
+
+<style>
+.submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.submit-btn {
+  background-color: #dadada;
+  padding: 10px 15px;
+  border-radius: 10px;
+  transition: 0.5s;
+}
+
+.submit-btn:hover {
+  background-color: red;
+}
+</style>
