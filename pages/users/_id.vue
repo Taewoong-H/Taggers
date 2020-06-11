@@ -1,37 +1,23 @@
 <template>
   <div>
     <section>
-      <h1>Taggers 광고 상품</h1>
-      <div>
-        <table>
-          <thead>
-            <th>상품 이름</th>
-            <th>가격</th>
-          </thead>
-          <tbody>
-            <td>
-              <tr v-for="item in items.data" class="item">
-                <p>{{ item.name }}</p>
-              </tr>
-            </td>
-            <td>
-              <tr v-for="item in items.data" class="item">
-                <p>{{ item.sale_price }}</p>
-              </tr>
-            </td>
-          </tbody>
-        </table>
+      <ProductTable :items="items.data" />
+      <div class="move_page">
+        <n-link class="page_id==1 ? 'disabled' : ''" :to="`/users/${prevPage}`">prev_link</n-link>
+        <n-link :to="`/users/${nextPage}`">next_link</n-link>
       </div>
-      <n-link :to="`/users/${nextPage}`">next_link</n-link>
     </section>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import ProductTable from "../../components/ProductTable";
 export default {
+  components: { ProductTable },
   data() {
     return {
+      page_id: this.$route.params.id,
       items: []
     };
   },
@@ -45,8 +31,23 @@ export default {
 
   computed: {
     nextPage() {
+      const currentPage = this.items.current_page;
       return this.items.current_page + 1;
+    },
+    prevPage() {
+      const currentPage = this.items.current_page;
+      return this.items.current_page - 1;
     }
   }
 };
 </script>
+
+<style>
+.disabled {
+  color: lightgrey;
+  pointer-events: none;
+}
+.move_page {
+  text-align: center;
+}
+</style>

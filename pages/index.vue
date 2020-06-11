@@ -1,35 +1,21 @@
 <template>
   <article>
     <section>
-      <h1>Taggers 광고 상품</h1>
-      <div>
-        <table>
-          <thead>
-            <th>상품 이름</th>
-            <th>가격</th>
-          </thead>
-          <tbody>
-            <td>
-              <tr v-for="item in items.data" class="item">
-                <p>{{ item.name }}</p>
-              </tr>
-            </td>
-            <td>
-              <tr v-for="item in items.data" class="item">
-                <p>{{ item.sale_price }}</p>
-              </tr>
-            </td>
-          </tbody>
-        </table>
+      <ProductTable :items="items.data" :sortHighest="sortHighest" :sortLowest="sortLowest" />
+      <div class="move_page">
+        <n-link class="disabled" :to="`/users/${prevPage}`">prev_link</n-link>
+        <n-link :to="`/users/${nextPage}`">next_link</n-link>
       </div>
-      <n-link :to="`/users/${nextPage}`">next_link</n-link>
     </section>
   </article>
 </template>
 
 <script>
 import axios from "axios";
+import ProductTable from "../components/ProductTable";
+
 export default {
+  components: { ProductTable },
   data() {
     return {
       items: []
@@ -44,11 +30,33 @@ export default {
 
   computed: {
     nextPage() {
+      const currentPage = this.items.current_page;
       return this.items.current_page + 1;
+    },
+    prevPage() {
+      const currentPage = this.items.current_page;
+
+      return this.items.current_page - 1;
+    }
+  },
+
+  methods: {
+    sortLowest() {
+      this.items.data.sort((a, b) => (a.sale_price > b.sale_price ? 1 : -1));
+    },
+    sortHighest() {
+      this.items.data.sort((a, b) => (a.sale_price < b.sale_price ? 1 : -1));
     }
   }
 };
 </script>
 
 <style>
+.disabled {
+  color: lightgrey;
+  pointer-events: none;
+}
+.move_page {
+  text-align: center;
+}
 </style>
