@@ -3,17 +3,24 @@
     <n-link to="/">
       <h1 class="header">Taggers 광고 상품 표</h1>
     </n-link>
-    <ProductFilter />
+    <button @click="add">버튼 추가</button>
+    <component v-for="item in buttons" :is="item" :key="item.id" />
     <nuxt />
   </div>
 </template>
 
 <script>
-import ProductFilter from "@/components/ProductFilter";
-
+const comp = () => import("@/components/ProductFilter");
 export default {
-  components: {
-    ProductFilter
+  data() {
+    return {
+      buttons: []
+    };
+  },
+  methods: {
+    add() {
+      this.buttons.push(comp);
+    }
   }
 };
 </script>
