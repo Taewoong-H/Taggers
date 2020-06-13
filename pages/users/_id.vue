@@ -3,7 +3,7 @@
     <section>
       <ProductTable :items="items.data" />
       <div class="move_page">
-        <n-link class="page_id==1 ? 'disabled' : ''" :to="`/users/${prevPage}`">prev_link</n-link>
+        <n-link class="page_id===1 ? 'disabled' : ''" :to="`/users/${prevPage}`">prev_link</n-link>
         <n-link :to="`/users/${nextPage}`">next_link</n-link>
       </div>
     </section>
