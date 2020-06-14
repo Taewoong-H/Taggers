@@ -1,11 +1,12 @@
 <template>
   <div>
     <section>
-      <ProductTable :productDatas="productDatas.data" />
-      <div class="move_page">
-        <n-link class="page_id===1 ? 'disabled' : ''" :to="`/users/${prevPage}`">prev_link</n-link>
-        <n-link :to="`/users/${nextPage}`">next_link</n-link>
-      </div>
+      <ProductTable
+        :productDatas="productDatas.data"
+        :sortHighest="sortHighest"
+        :sortLowest="sortLowest"
+      />
+      <pageMove :productDatas="productDatas" />
     </section>
   </div>
 </template>
@@ -13,11 +14,12 @@
 <script>
 import axios from "axios";
 import ProductTable from "../../components/ProductTable";
+import PageMove from "../../components/PageMove";
+
 export default {
-  components: { ProductTable },
+  components: { ProductTable, PageMove },
   data() {
     return {
-      page_id: this.$route.params.id,
       productDatas: []
     };
   },
@@ -29,14 +31,16 @@ export default {
     return { productDatas: data };
   },
 
-  computed: {
-    nextPage() {
-      const currentPage = this.productDatas.current_page;
-      return currentPage + 1;
+  methods: {
+    sortLowest() {
+      this.productDatas.data.sort((a, b) =>
+        a.sale_price > b.sale_price ? 1 : -1
+      );
     },
-    prevPage() {
-      const currentPage = this.productDatas.current_page;
-      return currentPage - 1;
+    sortHighest() {
+      this.productDatas.data.sort((a, b) =>
+        a.sale_price < b.sale_price ? 1 : -1
+      );
     }
   }
 };
@@ -46,8 +50,5 @@ export default {
 .disabled {
   color: lightgrey;
   pointer-events: none;
-}
-.move_page {
-  text-align: center;
 }
 </style>

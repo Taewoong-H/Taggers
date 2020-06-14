@@ -6,10 +6,7 @@
         :sortHighest="sortHighest"
         :sortLowest="sortLowest"
       />
-      <div class="move_page">
-        <n-link class="disabled" :to="`/users/${prevPage}`">prev_link</n-link>
-        <n-link :to="`/users/${nextPage}`">next_link</n-link>
-      </div>
+      <pageMove :productDatas="productDatas" />
     </section>
   </article>
 </template>
@@ -17,9 +14,10 @@
 <script>
 import axios from "axios";
 import ProductTable from "../../components/ProductTable";
+import PageMove from "../../components/PageMove";
 
 export default {
-  components: { ProductTable },
+  components: { ProductTable, PageMove },
 
   data() {
     return {
@@ -32,18 +30,6 @@ export default {
       `http://products-interview.b4e2txqxtr.ap-northeast-2.elasticbeanstalk.com/api/products?query=${route.params.fields}`
     );
     return { productDatas: data };
-  },
-
-  computed: {
-    nextPage() {
-      const currentPage = this.productDatas.current_page;
-      return currentPage + 1;
-    },
-
-    prevPage() {
-      const currentPage = this.productDatas.current_page;
-      return currentPage - 1;
-    }
   },
 
   methods: {
