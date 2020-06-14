@@ -1,3 +1,6 @@
 <template>
-  <h1>Hello</h1>
+  <h1>result</h1>
 </template>
+
+<script>
+</script>

@@ -88,10 +88,11 @@ export default {
   },
   methods: {
     confirm(e) {
-      this.$store.commit(
-        "querys/add",
-        this.bindField + "이 " + this.bindOperator + " " + this.bindText
-      );
+      this.$store.commit("querys/add", [
+        this.bindField,
+        this.bindOperator,
+        this.bindText
+      ]);
       this.bindOperator = [];
       this.bindText = [];
     }

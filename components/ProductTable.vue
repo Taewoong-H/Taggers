@@ -6,7 +6,7 @@
           <th class="text-left">이름</th>
           <th class="text-left header-sales">
             <p>판매가</p>
-            <!--button-->
+            <!--sorting button-->
             <div class="sorting-btn">
               <button @click="sortHighest">
                 <i class="fas fa-caret-up"></i>
@@ -21,11 +21,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in items" :key="item.name">
-          <td>{{ item.name }}</td>
-          <td>{{ item.sale_price }}</td>
-          <td>{{ item.base_price }}</td>
-          <td>{{ item.created_at }}</td>
+        <tr v-for="productData in productDatas" :key="productData.name">
+          <td>{{ productData.name }}</td>
+          <td>{{ productData.sale_price }}</td>
+          <td>{{ productData.base_price }}</td>
+          <td>{{ productData.created_at }}</td>
         </tr>
       </tbody>
     </template>
@@ -34,7 +34,7 @@
 
 <script>
 export default {
-  props: ["items", "sortHighest", "sortLowest"]
+  props: ["productDatas", "sortHighest", "sortLowest"]
 };
 </script>
 

@@ -12,8 +12,6 @@
         <span @click="remove(query)">del</span>
       </li>
     </ul>
-    <!-- 쿼리 넘기기 구현...-->
-    <n-link to="/field">검색</n-link>
     <nuxt />
   </div>
 </template>
