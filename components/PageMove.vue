@@ -9,6 +9,7 @@
 export default {
   props: ["productDatas"],
   // page_id: this.$route.params.id,
+
   computed: {
     nextPage() {
       const currentPage = this.productDatas.current_page;

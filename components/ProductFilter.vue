@@ -68,7 +68,7 @@ export default {
     return {
       //components
       fields: ["상품이름", "판매가", "판매원가", "상품등록일"],
-      nameOperators: ["다음과 같음", "다음으로 시작", "다음으로 끝"],
+      nameOperators: ["다음과 똑같음", "다음으로 시작", "다음으로 끝"],
       priceOperators: [
         "다음보다 큼",
         "다음보다 크거나 같음",
@@ -96,14 +96,49 @@ export default {
 
   methods: {
     saveQuerysToStore() {
+      let storeBindField = "";
+      let storeBindOperator = "";
+      let storeBindText = this.bindText;
+      let storeBindDate = this.date;
+
+      if (this.bindField === "상품이름") {
+        storeBindField = "name";
+      } else if (this.bindField === "판매가") {
+        storeBindField = "sale_price";
+      } else if (this.bindField === "원가") {
+        storeBindField = "base_price";
+      } else if (this.bindField === "상품등록일") {
+        storeBindField = "created_at";
+      }
+
+      if (this.bindOperator === "다음과 똑같음") {
+        storeBindOperator = "ct";
+      } else if (this.bindOperator === "다음으로 시작") {
+        storeBindOperator = "sw";
+      } else if (this.bindOperator === "다음으로 끝") {
+        storeBindOperator = "ew";
+      } else if (this.bindOperator === "다음보다 큼") {
+        storeBindOperator = ">";
+      } else if (this.bindOperator === "다음보다 크거나 같음") {
+        storeBindOperator = ">=";
+      } else if (this.bindOperator === "다음과 같음") {
+        storeBindOperator = "=";
+      } else if (this.bindOperator === "다음보다 작거나 같음") {
+        storeBindOperator = "<=";
+      } else if (this.bindOperator === "다음보다 작음") {
+        storeBindOperator = "<";
+      } else if (this.bindOperator === "다음날짜부터") {
+        storeBindOperator = ">";
+      } else if (this.bindOperator === "다음날짜까지") {
+        storeBindOperator = "<";
+      }
+
       this.$store.commit("querys/add", [
-        this.bindField,
-        this.bindOperator,
-        this.bindText,
-        this.date
+        storeBindField,
+        storeBindOperator,
+        storeBindText,
+        storeBindDate
       ]);
-      this.bindOperator = [];
-      this.bindText = [];
     }
   }
 };

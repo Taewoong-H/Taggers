@@ -18,6 +18,7 @@ import PageMove from "../../components/PageMove";
 
 export default {
   components: { ProductTable, PageMove },
+
   data() {
     return {
       productDatas: []
@@ -37,6 +38,7 @@ export default {
         a.sale_price > b.sale_price ? 1 : -1
       );
     },
+
     sortHighest() {
       this.productDatas.data.sort((a, b) =>
         a.sale_price < b.sale_price ? 1 : -1

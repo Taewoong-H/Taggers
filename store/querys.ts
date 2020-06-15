@@ -4,7 +4,7 @@ export const state = () => ({
 });
 
 export const mutations = {
-  add(state, text) {
+  add(state, text: Array<string>) {
     state.counter++;
     state.list.push({
       id: state.counter,
@@ -12,9 +12,11 @@ export const mutations = {
       done: false
     });
   },
+
   remove(state, query) {
     state.list.splice(state.list.indexOf(query), 1);
   },
+
   toggle(state, query) {
     query.done = !query.done;
   }
