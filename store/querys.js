@@ -4,7 +4,7 @@ export const state = () => ({
 });
 
 export const mutations = {
-  add(state, text: Array<string>) {
+  add(state, text) {
     state.counter++;
     state.list.push({
       id: state.counter,
