@@ -15,9 +15,5 @@ export const mutations = {
 
   remove(state, query) {
     state.list.splice(state.list.indexOf(query), 1);
-  },
-
-  toggle(state, query) {
-    query.done = !query.done;
   }
 };

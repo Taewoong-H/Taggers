@@ -3,12 +3,11 @@
     <section class="search">
       <div class="filter-container">
         <component v-for="item in buttons" :is="item" :key="item.id" />
-        <span class="add-search" @click="add">검색 추가</span>
+        <span class="add-search" @click="add">필터 추가</span>
       </div>
       <div class="store-list">
         <ul>
           <li v-for="query in querys" :key="query.id">
-            <input type="checkbox" :checked="query.done" @change="toggle(query)" />
             <span :class="{ done: query.done }">{{ query.text }}</span>
             <span @click="remove(query)">del</span>
           </li>
@@ -23,8 +22,9 @@
     <section>
       <ProductTable
         :productDatas="productDatas.data"
-        :sortHighest="sortHighest"
-        :sortLowest="sortLowest"
+        :routeToGo="routeToGo"
+        @sortHighest="sortHighest"
+        @sortLowest="sortLowest"
       />
       <pageMove :productDatas="productDatas" />
     </section>
@@ -52,7 +52,7 @@ export default {
 
   async asyncData({ store, route }) {
     const { data } = await axios.get(
-      `http://products-interview.b4e2txqxtr.ap-northeast-2.elasticbeanstalk.com/api/products?query=${route.params.fields}&page=${route.params.id}`
+      `http://products-interview.b4e2txqxtr.ap-northeast-2.elasticbeanstalk.com/api/products?${route.params.fields}&page=${route.params.id}`
     );
     return { productDatas: data };
   },
@@ -65,6 +65,7 @@ export default {
 
   methods: {
     clickStateToRoute() {
+      this.routeToGo += "query=";
       for (var i = 0; i < this.querys.length; i++) {
         const currentQuery = this.querys[i];
         if (currentQuery.text[0] === "created_at") {
@@ -86,20 +87,15 @@ export default {
     },
 
     ...mapMutations({
-      remove: "querys/remove",
-      toggle: "querys/toggle"
+      remove: "querys/remove"
     }),
 
-    sortLowest() {
-      this.productDatas.data.sort((a, b) =>
-        a.sale_price > b.sale_price ? 1 : -1
-      );
+    sortLowest(fieldName) {
+      this.routeToGo = `${this.$route.params.fields}&orders[0][column]=${fieldName}&orders[0][direction]=desc`;
     },
 
-    sortHighest() {
-      this.productDatas.data.sort((a, b) =>
-        a.sale_price < b.sale_price ? 1 : -1
-      );
+    sortHighest(fieldName) {
+      this.routeToGo = `${this.$route.params.fields}&orders[0][column]=${fieldName}&orders[0][direction]=asc`;
     }
   }
 };

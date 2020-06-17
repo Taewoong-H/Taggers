@@ -1,23 +1,56 @@
 <template>
-  <v-simple-table dense>
+  <v-simple-table>
     <template v-slot:default>
-      <thead>
-        <tr>
-          <th class="text-left">이름</th>
-          <th class="text-left header-sales">
+      <thead class="header-container">
+        <tr class="header">
+          <th class="text-left header-sortings">
+            <p>이름</p>
+            <!--sorting button-->
+            <div class="sorting-btn">
+              <n-link :to="`/${routeToGo}`">
+                <i @click="sortNameHighest" class="fas fa-caret-up"></i>
+              </n-link>
+              <n-link :to="`/${routeToGo}`">
+                <i @click="sortNameLowest" class="fas fa-caret-down"></i>
+              </n-link>
+            </div>
+          </th>
+          <th class="text-left header-sortings">
             <p>판매가</p>
             <!--sorting button-->
             <div class="sorting-btn">
-              <button @click="sortHighest">
-                <i class="fas fa-caret-up"></i>
-              </button>
-              <button @click="sortLowest">
-                <i class="fas fa-caret-down"></i>
-              </button>
+              <n-link :to="`/${routeToGo}`">
+                <i @click="sortSaleHighest" class="fas fa-caret-up"></i>
+              </n-link>
+              <n-link :to="`/${routeToGo}`">
+                <i @click="sortSaleLowest" class="fas fa-caret-down"></i>
+              </n-link>
             </div>
           </th>
-          <th class="text-left">원가</th>
-          <th class="text-left">등록일</th>
+          <th class="text-left header-sortings">
+            <p>원가</p>
+            <!--sorting button-->
+            <div class="sorting-btn">
+              <n-link :to="`/${routeToGo}`">
+                <i @click="sortBaseHighest" class="fas fa-caret-up"></i>
+              </n-link>
+              <n-link :to="`/${routeToGo}`">
+                <i @click="sortBaseLowest" class="fas fa-caret-down"></i>
+              </n-link>
+            </div>
+          </th>
+          <th class="text-left header-sortings">
+            <p>등록일</p>
+            <!--sorting button-->
+            <div class="sorting-btn">
+              <n-link :to="`/${routeToGo}`">
+                <i @click="sortCreateHighest" class="fas fa-caret-up"></i>
+              </n-link>
+              <n-link :to="`/${routeToGo}`">
+                <i @click="sortCreateLowest" class="fas fa-caret-down"></i>
+              </n-link>
+            </div>
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -34,17 +67,54 @@
 
 <script>
 export default {
-  props: ["productDatas", "sortHighest", "sortLowest"]
+  props: ["productDatas", "routeToGo"],
+
+  methods: {
+    sortNameHighest() {
+      this.$emit("sortHighest", "name");
+    },
+
+    sortNameLowest() {
+      this.$emit("sortLowest", "name");
+    },
+
+    sortSaleHighest() {
+      this.$emit("sortHighest", "sale_price");
+    },
+
+    sortSaleLowest() {
+      this.$emit("sortLowest", "sale_price");
+    },
+
+    sortBaseHighest() {
+      this.$emit("sortHighest", "base_price");
+    },
+
+    sortBaseLowest() {
+      this.$emit("sortLowest", "base_price");
+    },
+
+    sortCreateHighest() {
+      this.$emit("sortHighest", "created_at");
+    },
+
+    sortCreateLowest() {
+      this.$emit("sortLowest", "created_at");
+    }
+  }
 };
 </script>
 
 <style scoped>
+.header-container {
+  width: 100%;
+}
+
 .text-left {
   text-align: left;
   align-items: center;
 }
 
-.header-sales {
-  display: flex;
+.header-sortings {
 }
 </style>
