@@ -106,6 +106,11 @@ export default {
 </script>
 
 <style scoped>
+.theme--light.v-data-table {
+  background-color: #f2f2f2;
+  color: rgba(0, 0, 0, 0.87);
+}
+
 .header-container {
   width: 100%;
 }

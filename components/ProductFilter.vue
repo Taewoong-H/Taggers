@@ -64,7 +64,7 @@
       </v-row>
     </div>
     <div>
-      <span class="del-store-list" v-if="bindField.length > 0" @click="delQuerysToStore">삭제</span>
+      <span class="del-store-list" @click="delQuerysToStore">삭제</span>
     </div>
   </section>
 </template>
@@ -120,7 +120,7 @@ export default {
         storeBindField = "name";
       } else if (this.bindField === "판매가") {
         storeBindField = "sale_price";
-      } else if (this.bindField === "원가") {
+      } else if (this.bindField === "판매원가") {
         storeBindField = "base_price";
       } else if (this.bindField === "상품등록일") {
         storeBindField = "created_at";
@@ -175,15 +175,15 @@ export default {
   font-weight: 400;
   margin: 30px;
   border-radius: 20px;
-  background: #d6d6d6;
-  box-shadow: 11px 11px 22px #b6b6b6, -11px -11px 22px #f6f6f6;
+  background: #f2f2f2;
+  box-shadow: 12px 12px 24px #cecece, -12px -12px 24px #ffffff;
 }
 
 .component-filter-container .row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 50px;
+  padding: 0 10px 0 50px;
 }
 
 .d-flex div {
@@ -197,23 +197,16 @@ export default {
   color: #fff;
 }
 
-.btn-box .add-store-list {
+.btn-box .add-store-list,
+.del-store-list {
   padding: 10px;
-  border-radius: 15px;
-  background: #fff;
+  border-radius: 10px;
+  background: #f2f2f2;
   color: #111;
-  font-size: 18px;
-  font-weight: 400;
+  font-size: 15px;
+  font-weight: 600;
   cursor: pointer;
-}
-
-.btn-box .del-store-list {
-  padding: 10px;
-  border-radius: 15px;
-  background: #fff;
-  color: #111;
-  font-size: 18px;
-  font-weight: 400;
-  cursor: pointer;
+  background: #f2f2f2;
+  box-shadow: 12px 12px 24px #cecece, -12px -12px 24px #ffffff;
 }
 </style>

@@ -60,4 +60,15 @@ export default {
 .move-page ul li {
   margin: 5px;
 }
+
+.move-page ul li a {
+  text-decoration: none;
+  color: #111;
+  font-weight: 500;
+}
+
+.disabled {
+  color: lightgrey !important;
+  pointer-events: none;
+}
 </style>

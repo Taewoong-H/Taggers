@@ -1,6 +1,7 @@
 <template>
   <article>
     <section class="search">
+      <h3>검색 필터</h3>
       <div class="filter-container">
         <component
           v-for="(item, index) in buttons"
@@ -9,20 +10,23 @@
           :itemId="index"
           @delete="deleteComponent"
         />
-        <span class="add-search" @click="add">필터 추가</span>
+        <span class="add-search" @click="add">➕</span>
       </div>
-      <div class="store-list">
+      <div class="list-container">
         <ul>
           <li v-for="query in querys" :key="query.id">
-            <span :class="{ done: query.done }">{{ query.text }}</span>
-            <span @click="remove(query)">del</span>
+            <span
+              v-if="query.text[0]==='created_at'"
+            >{{ query.text[0] }} {{query.text[1]}} {{query.text[3]}}</span>
+            <span v-else>{{ query.text[0] }} {{query.text[1]}} {{query.text[2]}}</span>
+            <span class="del-btn" @click="remove(query)">❌</span>
           </li>
         </ul>
+
+        <n-link class="search-link" :to="`/${routeToGo}`">
+          <span class="search-btn" @click="clickStateToRoute">검색</span>
+        </n-link>
       </div>
-      <!-- 쿼리 넘기기 구현...-->
-      <n-link class="search-link" :to="`/${routeToGo}`">
-        <span class="search-btn" @click="clickStateToRoute">검색</span>
-      </n-link>
     </section>
 
     <section>
@@ -113,22 +117,22 @@ export default {
 
 <style>
 .search {
-  padding: 30px;
-  text-align: center;
+  padding: 60px;
 }
 
 .search .filter-container {
   width: 100%;
+  text-align: center;
 }
 
 .search .filter-container .add-search {
   padding: 10px;
   border-radius: 15px;
-  background: #fff;
   color: #111;
-  font-size: 18px;
-  font-weight: 400;
+  font-size: 30px;
   cursor: pointer;
+  background: #f2f2f2;
+  box-shadow: 12px 12px 24px #cecece, -12px -12px 24px #ffffff;
 }
 
 .search-link {
@@ -136,11 +140,31 @@ export default {
   color: #111;
 }
 
-.disabled {
-  color: lightgrey;
-  pointer-events: none;
+.search-link .search-btn {
+  border-radius: 10px;
+  padding: 10px;
+  margin-left: 30px;
+  background: #f2f2f2;
+  box-shadow: 12px 12px 24px #cecece, -12px -12px 24px #ffffff;
+  font-weight: 600;
 }
-.move_page {
-  text-align: center;
+
+.list-container {
+  display: flex;
+  margin: 15px;
+}
+
+.list-container ul {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+}
+
+.list-container ul li {
+  margin: 0 10px;
+}
+
+.list-container ul li .del-btn {
+  cursor: pointer;
 }
 </style>
