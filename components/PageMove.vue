@@ -2,15 +2,20 @@
   <div class="move-page">
     <ul v-if="this.productDatas.last_page > 0">
       <li>
-        <n-link v-if="this.productDatas.current_page > 1" :to="`/${prevLink}`">prev_link</n-link>
+        <n-link v-if="this.productDatas.current_page > 1" :to="`/${prevLink}`"
+          >prev_link</n-link
+        >
         <a v-else class="disabled">prev_link</a>
       </li>
-      <li>{{this.productDatas.current_page}}/{{this.productDatas.last_page}}</li>
+      <li>
+        {{ this.productDatas.current_page }}/{{ this.productDatas.last_page }}
+      </li>
       <li>
         <n-link
           v-if="this.productDatas.current_page < this.productDatas.last_page"
           :to="`/${nextLink}`"
-        >next_link</n-link>
+          >next_link</n-link
+        >
         <a v-else class="disabled">next_link</a>
       </li>
     </ul>
@@ -20,7 +25,6 @@
 <script>
 export default {
   props: ["productDatas"],
-  // page_id: this.$route.params.id,
 
   computed: {
     prevLink() {

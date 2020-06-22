@@ -7,21 +7,21 @@
         </v-col>
         <v-col class="d-flex" cols="12" sm="3">
           <v-select
-            v-if="bindField==='상품이름'"
+            v-if="bindField === '상품이름'"
             :items="nameOperators"
             label="연산자"
             dense
             v-model="bindOperator"
           ></v-select>
           <v-select
-            v-if="bindField==='판매가' || bindField==='판매원가'"
+            v-if="bindField === '판매가' || bindField === '판매원가'"
             :items="priceOperators"
             label="연산자"
             dense
             v-model="bindOperator"
           ></v-select>
           <v-select
-            v-if="bindField==='상품등록일'"
+            v-if="bindField === '상품등록일'"
             :items="dateOperators"
             label="연산자"
             dense
@@ -29,9 +29,9 @@
           ></v-select>
         </v-col>
         <v-col class="d-flex" cols="12" sm="3">
-          <v-text-field v-if="bindField==='상품이름'" label="상품이름" v-model="bindText"></v-text-field>
+          <v-text-field v-if="bindField === '상품이름'" label="상품이름" v-model="bindText"></v-text-field>
           <v-text-field
-            v-if="bindField==='판매가' || bindField==='판매원가'"
+            v-if="bindField === '판매가' || bindField === '판매원가'"
             label="가격"
             v-model="bindText"
           ></v-text-field>
@@ -39,7 +39,7 @@
           <!-- date picker -->
           <v-menu
             ref="menu"
-            v-if="bindField==='상품등록일'"
+            v-if="bindField === '상품등록일'"
             v-model="menu"
             :close-on-content-click="false"
             :return-value.sync="date"
@@ -152,7 +152,11 @@ export default {
         storeBindField,
         storeBindOperator,
         storeBindText,
-        storeBindDate
+        storeBindDate,
+        this.bindField,
+        this.bindOperator,
+        this.bindText,
+        this.date
       ]);
     },
 
@@ -181,9 +185,13 @@ export default {
 
 .component-filter-container .row {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
-  padding: 0 10px 0 50px;
+  padding: 0 10px 0 10px;
+}
+
+.d-flex {
+  transform: translate(10px, 10px);
 }
 
 .d-flex div {
@@ -192,7 +200,7 @@ export default {
 }
 
 .btn-box {
-  width: 150px;
+  width: 100px;
   background: transparent;
   color: #fff;
 }
@@ -208,5 +216,18 @@ export default {
   cursor: pointer;
   background: #f2f2f2;
   box-shadow: 12px 12px 24px #cecece, -12px -12px 24px #ffffff;
+}
+
+@media (max-width: 1100px) {
+  .component-container {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 600px) {
+  .component-filter-container .row {
+    justify-content: center;
+    padding: 20px 50px 30px 50px;
+  }
 }
 </style>

@@ -4,21 +4,23 @@
       <h3>검색 필터</h3>
       <div class="filter-container">
         <component
-          v-for="(item, index) in buttons"
-          :is="item"
+          v-for="(filter, index) in filters"
+          :is="filter"
           :key="index"
           :itemId="index"
           @delete="deleteComponent"
         />
+      </div>
+      <div class="add-container">
         <span class="add-search" @click="add">➕</span>
       </div>
       <div class="list-container">
         <ul>
           <li v-for="query in querys" :key="query.id">
             <span
-              v-if="query.text[0]==='created_at'"
-            >{{ query.text[0] }} {{query.text[1]}} {{query.text[3]}}</span>
-            <span v-else>{{ query.text[0] }} {{query.text[1]}} {{query.text[2]}}</span>
+              v-if="query.text[4] === '상품등록일'"
+            >{{ query.text[4] }} {{ query.text[5] }} {{ query.text[7] }}</span>
+            <span v-else>{{ query.text[4] }} {{ query.text[5] }} {{ query.text[6] }}</span>
             <span class="del-btn" @click="remove(query)">❌</span>
           </li>
         </ul>
@@ -39,7 +41,7 @@
       <pageMove :productDatas="productDatas" />
     </section>
   </article>
-</template> 
+</template>
 
 <script>
 import axios from "axios";
@@ -55,7 +57,7 @@ export default {
   data() {
     return {
       productDatas: [],
-      buttons: [],
+      filters: [],
       routeToGo: []
     };
   },
@@ -93,11 +95,11 @@ export default {
     },
 
     add() {
-      this.buttons.push(dynamicComponentFilter);
+      this.filters.push(dynamicComponentFilter);
     },
 
     deleteComponent(indexId) {
-      this.buttons.splice(indexId, 1);
+      this.filters.splice(indexId, 1);
     },
 
     ...mapMutations({
@@ -117,19 +119,27 @@ export default {
 
 <style>
 .search {
-  padding: 60px;
+  padding: 30px;
 }
 
 .search .filter-container {
   width: 100%;
+  margin-bottom: 30px;
   text-align: center;
 }
 
-.search .filter-container .add-search {
+.add-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-container .add-search {
   padding: 10px;
   border-radius: 15px;
   color: #111;
   font-size: 30px;
+  text-align: center;
   cursor: pointer;
   background: #f2f2f2;
   box-shadow: 12px 12px 24px #cecece, -12px -12px 24px #ffffff;
@@ -152,16 +162,26 @@ export default {
 .list-container {
   display: flex;
   margin: 15px;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
 .list-container ul {
   display: flex;
   flex-wrap: wrap;
-  list-style: none;
+  padding: 5px;
+  margin: 10px;
+  align-items: center;
 }
 
 .list-container ul li {
-  margin: 0 10px;
+  display: flex;
+
+  padding: 5px;
+  margin: 10px;
+  border-radius: 10px;
+  list-style: none;
+  box-shadow: inset 5px 5px 10px #d7d7d7, inset -5px -5px 10px #ffffff;
 }
 
 .list-container ul li .del-btn {

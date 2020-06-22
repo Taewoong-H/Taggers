@@ -4,21 +4,23 @@
       <h3>검색 필터</h3>
       <div class="filter-container">
         <component
-          v-for="item in buttons"
-          :is="item"
-          :key="item.id"
+          v-for="(filter, index) in filters"
+          :is="filter"
+          :key="index"
           :itemId="index"
           @delete="deleteComponent"
         />
+      </div>
+      <div class="add-container">
         <span class="add-search" @click="add">➕</span>
       </div>
       <div class="list-container">
         <ul>
           <li v-for="query in querys" :key="query.id">
             <span
-              v-if="query.text[0]==='created_at'"
-            >{{ query.text[0] }} {{query.text[1]}} {{query.text[3]}}</span>
-            <span v-else>{{ query.text[0] }} {{query.text[1]}} {{query.text[2]}}</span>
+              v-if="query.text[4] === '상품등록일'"
+            >{{ query.text[4] }} {{ query.text[5] }} {{ query.text[7] }}</span>
+            <span v-else>{{ query.text[4] }} {{ query.text[5] }} {{ query.text[6] }}</span>
             <span class="del-btn" @click="remove(query)">❌</span>
           </li>
         </ul>
@@ -55,7 +57,7 @@ export default {
   data() {
     return {
       productDatas: [],
-      buttons: [],
+      filters: [],
       routeToGo: []
     };
   },
@@ -93,11 +95,11 @@ export default {
     },
 
     add() {
-      this.buttons.push(dynamicComponentFilter);
+      this.filters.push(dynamicComponentFilter);
     },
 
     deleteComponent(indexId) {
-      this.buttons.splice(indexId, 1);
+      this.filters.splice(indexId, 1);
     },
 
     ...mapMutations({
@@ -115,5 +117,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>
