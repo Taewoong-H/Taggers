@@ -27,7 +27,7 @@ For detailed explanation on how things work, check out [Nuxt.js docs](https://nu
 
 ## Screen shot
 
-<img src="https://github.com/Taewoong-H/Taggers/tree/master/static/screenshot.PNG" width="600px" height="300px" title="Taggers internship project" alt="Taggers internship project"></img><br/>
+<img src="https://github.com/Taewoong-H/Taggers/blob/master/static/screenshot.PNG" width="600px" height="300px" title="Taggers internship project" alt="Taggers internship project"></img><br/>
 
 ## 기능
 
